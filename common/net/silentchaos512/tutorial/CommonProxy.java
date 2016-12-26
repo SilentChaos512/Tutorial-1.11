@@ -8,10 +8,14 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.silentchaos512.tutorial.init.ModItems;
 
+/**
+ * The common version of the proxy. Everything in here is done on both the client AND the server!
+ */
 public class CommonProxy {
 
   public void preInit(FMLPreInitializationEvent event) {
 
+    // Register items (not models)
     ModItems.init();
   }
 

@@ -9,6 +9,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.silentchaos512.tutorial.init.ModItems;
 
+/**
+ * The client-side only version of the proxy. Anything that should be done only on the client should be called from
+ * here.
+ */
 public class ClientProxy extends CommonProxy {
 
   @Override
@@ -22,6 +26,7 @@ public class ClientProxy extends CommonProxy {
 
     super.init(event);
 
+    // Register item models
     ModItems.initClient(Minecraft.getMinecraft().getRenderItem().getItemModelMesher());
   }
 
