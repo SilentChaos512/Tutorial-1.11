@@ -1,12 +1,11 @@
 package net.silentchaos512.tutorial;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.silentchaos512.tutorial.init.ModBlocks;
 import net.silentchaos512.tutorial.init.ModItems;
 
 /**
@@ -26,8 +25,12 @@ public class ClientProxy extends CommonProxy {
 
     super.init(event);
 
+    ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+
+    // Register block models
+    ModBlocks.initClient(mesher);
     // Register item models
-    ModItems.initClient(Minecraft.getMinecraft().getRenderItem().getItemModelMesher());
+    ModItems.initClient(mesher);
   }
 
   @Override

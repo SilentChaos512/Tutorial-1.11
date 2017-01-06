@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.silentchaos512.tutorial.init.ModBlocks;
 import net.silentchaos512.tutorial.init.ModItems;
 
 /**
@@ -15,6 +16,8 @@ public class CommonProxy {
 
   public void preInit(FMLPreInitializationEvent event) {
 
+    // Register blocks (not models)
+    ModBlocks.init();
     // Register items (not models)
     ModItems.init();
   }

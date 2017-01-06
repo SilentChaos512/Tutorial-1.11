@@ -9,6 +9,12 @@ package net.silentchaos512.tutorial.lib;
 public class Names {
 
   /*
+   * Blocks
+   */
+
+  public static final String TUTORIAL_BLOCK = "tutorial_block";
+
+  /*
    * Items
    */
 

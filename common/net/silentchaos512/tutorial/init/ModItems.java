@@ -42,7 +42,7 @@ public class ModItems {
   }
 
   /**
-   * The client-side initializer. Here we handle model registration. Note the @SideOnly annotion. This causes the method
+   * The client-side initializer. Here we handle model registration. Note the @SideOnly annotation. This causes the method
    * to exist only on the client-side, preventing servers from crashing.
    * 
    * This should be called during init, calling during preInit will crash.
