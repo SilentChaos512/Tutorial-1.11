@@ -47,6 +47,14 @@ public class ModBlocks {
   }
 
   /**
+   * Here we should call the addRecipes method for all blocks that have one. Should be called during the init phase.
+   */
+  public static void initRecipes() {
+
+    tutorialBlock.addRecipes();
+  }
+
+  /**
    * The client-side initializer. Here we handle model registration. Don't forget the @SideOnly annotation! This should
    * be called during init.
    */

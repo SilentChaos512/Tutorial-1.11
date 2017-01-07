@@ -24,6 +24,10 @@ public class CommonProxy {
 
   public void init(FMLInitializationEvent event) {
 
+    // Register recipes. We do this during init to make sure all the blocks and items are registered. Not just those
+    // from our mod, but from other mods too!
+    ModBlocks.initRecipes();
+    ModItems.initRecipes();
   }
 
   public void postInit(FMLPostInitializationEvent event) {

@@ -2,6 +2,8 @@ package net.silentchaos512.tutorial;
 
 import java.util.Random;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -9,10 +11,10 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.silentchaos512.tutorial.init.ModItems;
 
 /**
  * Our mod class. This serves as the starting point for our mod and all its code.
- * @author Silent
  *
  */
 @Mod(modid = Tutorial.MOD_ID, name = Tutorial.MOD_NAME, version = Tutorial.VERSION, dependencies = Tutorial.DEPENDENCIES)
@@ -86,4 +88,13 @@ public class Tutorial {
 
     proxy.postInit(event);
   }
+
+  public static CreativeTabs tabTutorial = new CreativeTabs(Tutorial.RESOURCE_PREFIX + "creative_tab") {
+
+    @Override
+    public ItemStack getTabIconItem() {
+
+      return new ItemStack(ModItems.tutorialItem);
+    }
+  };
 }
