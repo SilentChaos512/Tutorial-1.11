@@ -75,3 +75,10 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+sourceSets {
+    main {
+        java { srcDirs = ["$projectDir/common"] }
+        resources { srcDirs = ["$projectDir/resources"] }
+    }
+}
