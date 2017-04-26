@@ -2,13 +2,17 @@ package net.silentchaos512.tutorial.init;
 
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.silentchaos512.tutorial.Tutorial;
 import net.silentchaos512.tutorial.item.ItemTutorial;
+import net.silentchaos512.tutorial.item.tool.ItemTutorialPickaxe;
 import net.silentchaos512.tutorial.lib.Names;
 
 /**
@@ -18,11 +22,22 @@ import net.silentchaos512.tutorial.lib.Names;
  */
 public class ModItems {
 
+  /**
+   * The ToolMaterial our tools will use. ToolMaterials are good for setting the properties of basic tools and weapons,
+   * but should never be used anywhere but the constructors for said items! For example, Silent's Gems doesn't even USE
+   * the material passed to its tools! Things like harvest level, mining speed, durability, etc. are calculated from
+   * NBT. Use appropriate getter methods (e.g. getHarvestLevel, getStrVsBlock) if you need the values elsewhere.
+   */
+  public static ToolMaterial toolMaterial = EnumHelper
+      .addToolMaterial(Tutorial.RESOURCE_PREFIX + "tut_mat", 4, 2048, 10.0f, 4.0f, 16);
+
   /*
    * Item references for easy access.
    */
 
   public static ItemTutorial tutorialItem;
+
+  public static ItemTutorialPickaxe tutorialPickaxe;
 
   /**
    * The common initializer. Registers items, but not models. The game will crash if we try to do anything with models
@@ -39,6 +54,8 @@ public class ModItems {
     tutorialItem.setRegistryName(new ResourceLocation(Tutorial.MOD_ID, Names.TUTORIAL_ITEM));
     // Finally, register the item! Must be done AFTER setting the registry name.
     GameRegistry.register(tutorialItem);
+
+    tutorialPickaxe = register(new ItemTutorialPickaxe(), Names.PICKAXE);
   }
 
   /**
@@ -50,8 +67,8 @@ public class ModItems {
   }
 
   /**
-   * The client-side initializer. Here we handle model registration. Note the @SideOnly annotation. This causes the method
-   * to exist only on the client-side, preventing servers from crashing.
+   * The client-side initializer. Here we handle model registration. Note the @SideOnly annotation. This causes the
+   * method to exist only on the client-side, preventing servers from crashing.
    * 
    * This should be called during init, calling during preInit will crash.
    */
@@ -69,5 +86,47 @@ public class ModItems {
     // variant! And even if the variants don't depend on metadata, I believe each variant must be registered to a unique
     // meta... In this case, there are no other variants, so we just pass in a metadata of zero.
     mesher.register(tutorialItem, 0, model);
+
+    registerModel(mesher, tutorialPickaxe, Names.PICKAXE);
+  }
+
+  /**
+   * Helper method to make item registration more compact.
+   * 
+   * @param item
+   *          The new item to register.
+   * @param name
+   *          The name for the item (prepends the resource prefix automatically).
+   * @return item
+   * @since Episode 7
+   */
+  protected static <T extends Item> T register(T item, String name) {
+
+    item.setRegistryName(new ResourceLocation(Tutorial.MOD_ID, name));
+    GameRegistry.register(item);
+    item.setCreativeTab(Tutorial.tabTutorial);
+    item.setUnlocalizedName(Tutorial.RESOURCE_PREFIX + name);
+    return item;
+  }
+
+  /**
+   * Helper method to make model registration more compact.
+   * 
+   * @param mesher
+   *          The ItemModelMesher passed into initClient.
+   * @param item
+   *          The item you are registering models for.
+   * @param name
+   *          The item name (same one used in register).
+   * @since Episode 7
+   */
+  @SideOnly(Side.CLIENT)
+  protected static void registerModel(ItemModelMesher mesher, Item item, String name) {
+
+    ModelResourceLocation model = new ModelResourceLocation(Tutorial.RESOURCE_PREFIX + name,
+        "inventory");
+    ModelLoader.registerItemVariants(item, model);
+    mesher.register(item, 0, model);
+
   }
 }

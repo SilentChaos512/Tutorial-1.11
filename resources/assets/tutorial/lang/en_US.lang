@@ -5,6 +5,7 @@ tile.tutorial:tutorial_block.name=Tutorial Block
 # Items
 
 item.tutorial:tutorial_item.name=Tutorial Item
+item.tutorial:pickaxe.name=Tutorial Pickaxe
 
 # Creative Tab
 
